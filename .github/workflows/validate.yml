@@ -1,0 +1,23 @@
+name: 'validate yaml'
+
+on:
+  push:
+    branches: [ Check ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  validate:
+    name: Yaml Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@master
+      - name: "Sandeeps Yamllint Github Action"
+        uses: sandeeprapido/yaml-lint@v1
+        with:
+          yamllint_strict: false
+          yamllint_comment: true
+          yamllint_config_filepath: yamllint_config
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
